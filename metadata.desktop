@@ -1,0 +1,11 @@
+[SddmGreeterTheme]
+Name=Epita Simply Black
+Description=A simple and flat SDDM theme for Epita.
+License=CC-BY-SA
+Type=sddm-theme
+Version=1.0
+MainScript=Main.qml
+ConfigFile=theme.conf
+TranslationsDirectory=translations
+Theme-Id=epita-simplyflat
+Theme-API=2.0
