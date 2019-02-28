@@ -35,45 +35,4 @@ Rectangle
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 20
     }
-//    Rectangle
-//    {
-//        id: bandeau
-//        color: colors.foreground
-//        width: geometry.width
-//        height: geometry.height / 2 - 20
-//        y: geometry.height * 9 / 20
-//
-//
-//        Row
-//        {
-//            width: geometry.width / 2
-//            anchors.horizontalCenter: parent.horizontalCenter
-//            Text
-//            {
-//                id: titleLabel
-//                y: config.offset_top
-//                anchors.horizontalCenter: parent.horizontalCenter
-//                color: "white"
-//                text: config.title
-//                font.pixelSize: 40
-//            }
-//
-//            PlaceholderTextbox
-//            {
-//                id: usernameTextbox
-//                y: titleLabel.y + titleLabel.height + 20
-//                KeyNavigation.tab: passwordTextbox
-//                placeholder: "Login"
-//            }
-//            PlaceholderTextbox
-//            {
-//                id: passwordTextbox
-//                y: usernameTextbox.y + usernameTextbox.height + 20
-//                KeyNavigation.tab: passwordTextbox
-//                KeyNavigation.backtab: usernameTextbox
-//                echoMode: TextInput.Password
-//                placeholder: "Password"
-//            }
-//        }
-//    }
 }

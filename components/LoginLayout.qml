@@ -1,7 +1,8 @@
-import QtQuick 2.11
+import QtQuick 2.2
 import SddmComponents 2.0
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
+import QtQuick.Window 2.2
 
 Rectangle
 {
@@ -9,6 +10,19 @@ Rectangle
     width: parent.width
     height: loginRoot.height
     color: "transparent"
+
+    TextConstants { id: textConstants }
+    Connections {
+        target: sddm
+        onLoginSucceeded: {
+            errorMessageLabel.color = "steelblue"
+            errorMessageLabel.text = textConstants.loginSucceeded
+        }
+        onLoginFailed: {
+            errorMessageLabel.color = "red"
+            errorMessageLabel.text = textConstants.loginFailed
+        }
+    }
     Rectangle
     {
         id: loginRoot
@@ -16,33 +30,6 @@ Rectangle
         anchors.horizontalCenter: parent.horizontalCenter
         height: 300
         color: "transparent"
-        state: "login"
-        states: [
-            State {
-                name: "login"
-                PropertyChanges { target: userNameField; visible: true }
-                PropertyChanges { target: userNameLabel; visible: false; opacity: 0 }
-                PropertyChanges { target: passwordField; visible: false; opacity:0 }
-            },
-            State {
-                name: "password"
-                PropertyChanges { target: userNameField; visible: false }
-                PropertyChanges { target: passwordField; visible: true; opacity: 1 }
-                AnchorChanges { target: keyboardLayoutPicker; anchors.top: passwordField.top }
-            }
-        ]
-        //transitions: Transition {
-        //    from: "login"; to: "password";
-        //    PropertyAnimation {
-        //        target: userNameLabel; properties: "opacity"; duration: 0
-        //    }
-        //    PropertyAnimation {
-        //        target: passwordField; properties: "opacity"; duration: 0
-        //    }
-        //    AnchorAnimation {
-        //        targets: [keyboardLayoutPicker]; duration: 0
-        //    }
-        //}
         UserAvatar
         {
             id: userAvatar
@@ -85,25 +72,20 @@ Rectangle
                 }
                 console.log("Logging in with login " + text)
                 userAvatar.source = config.photo_url + text
-                loginRoot.state = "password"
                 passwordField.forceActiveFocus()
             }
         }
-        Text
+        SessionPicker
         {
-            id: userNameLabel
-            anchors.top: userAvatar.bottom
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.topMargin: 10
-            text: userNameField.text
-            font.pixelSize: 25
-            color: "white"
-            opacity: 0.8
+            id: sessionPicker
+            anchors.right: passwordField.left
+            anchors.rightMargin: 5
+            anchors.top: passwordField.top
         }
         KeyboardLayoutPicker
         {
             id: keyboardLayoutPicker
-            anchors.right: passwordField.left
+            anchors.right: userNameField.left
             anchors.rightMargin: 5
             anchors.top: userNameField.top
         }
@@ -113,7 +95,7 @@ Rectangle
             placeholderText: "Password"
             horizontalAlignment: TextInput.AlignHCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: userNameLabel.bottom
+            anchors.top: userNameField.bottom
             anchors.topMargin: 20
             echoMode: TextInput.Password
             style: TextFieldStyle {
@@ -129,21 +111,62 @@ Rectangle
             }
             onAccepted:
             {
-                authUser()
+                parent.authUser()
+            }
+            onTextChanged:
+            {
+                errorMessageLabel.text = ""
             }
             Keys.onBacktabPressed:
             {
-                loginRoot.state = "login"
                 userNameField.forceActiveFocus()
             }
             Keys.onTabPressed:
             {
-                authUser()
+                parent.authUser()
             }
-            function authUser()
-            {
-                console.log("Trying to login with password " + text)
+        }
+        // FIXME: For some reason, this is not a real button
+        Button
+        {
+            id: loginButton
+            anchors.top: passwordField.bottom
+            anchors.left: passwordField.left
+            anchors.topMargin: 20
+            width: passwordField.width
+            text: "Connexion"
+
+            style: ButtonStyle {
+                    background: Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 25
+                        border.color: "#00000000"
+                        color: "#007ee3"
+                        radius: 4
+                    }
             }
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: loginRoot.authUser()
+            }
+        }
+
+        Text
+        {
+            id: errorMessageLabel
+            anchors.top: loginButton.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.topMargin: 30
+            text: ""
+            color: "red"
+            font.pixelSize: 18
+        }
+
+        function authUser()
+        {
+            console.log("Trying to login with password " + passwordField.text)
+            sddm.login(userNameField.text, passwordField.text, sessionPicker.index)
         }
     }
 }

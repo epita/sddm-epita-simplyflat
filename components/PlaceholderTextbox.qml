@@ -6,11 +6,12 @@ TextBox
 {
     property alias placeholder: placeholderLabel.text
     anchors.horizontalCenter: parent.horizontalCenter
-    color: config.color_inputbg
+    color: colors.input_background
     height: 40
     radius: 3
     width: parent.width / 3
     font.pixelSize: 18
+    ColorScheme { id: colors }
     Text
     {
         id: placeholderLabel
@@ -20,6 +21,6 @@ TextBox
         text: "Login"
         font.pixelSize: parent.font.pixelSize
         visible: parent.text.length <= 0
-        color: config.color_placeholder
+        color: colors.placeholder_color
     }
 }

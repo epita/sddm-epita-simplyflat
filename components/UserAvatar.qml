@@ -33,7 +33,6 @@ Rectangle
         id: mask
         width: avatarRoot.width
         height: avatarRoot.height
-//        radius: avatarRoot.width / 2
         radius: 5
         visible: false
     }
