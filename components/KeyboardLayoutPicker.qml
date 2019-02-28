@@ -6,9 +6,8 @@ ComboBox {
     id: layoutPicker
     model: keyboard.layouts
     index: keyboard.currentLayout
-    width: 200;
+    width: 175
     height: 28
-    font.pixelSize: archlinux.height / 20
     arrowIcon: "../assets/angle-down.png"
     onValueChanged: keyboard.currentLayout = id
 
@@ -35,7 +34,6 @@ ComboBox {
             anchors.bottom: parent.bottom
             verticalAlignment: Text.AlignVCenter
             text: modelItem ? modelItem.modelData.longName : "zz"
-            font.pixelSize: 14
         }
     }
 }

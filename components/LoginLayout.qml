@@ -46,13 +46,12 @@ Rectangle
             horizontalAlignment: TextInput.AlignHCenter
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: userAvatar.bottom
-            anchors.topMargin: 20
+            anchors.topMargin: 60
             style: TextFieldStyle {
                 textColor: "black"
                 background: Rectangle {
-                    radius: 20
-                    opacity: 0.6
-                    implicitWidth: 280
+                    radius: 4
+                    implicitWidth: 360
                     implicitHeight: 30
                     border.color: "#333"
                     border.width: 1
@@ -75,20 +74,6 @@ Rectangle
                 passwordField.forceActiveFocus()
             }
         }
-        SessionPicker
-        {
-            id: sessionPicker
-            anchors.right: passwordField.left
-            anchors.rightMargin: 5
-            anchors.top: passwordField.top
-        }
-        KeyboardLayoutPicker
-        {
-            id: keyboardLayoutPicker
-            anchors.right: userNameField.left
-            anchors.rightMargin: 5
-            anchors.top: userNameField.top
-        }
         TextField
         {
             id: passwordField
@@ -96,17 +81,16 @@ Rectangle
             horizontalAlignment: TextInput.AlignHCenter
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: userNameField.bottom
-            anchors.topMargin: 20
+            anchors.topMargin: 5
             echoMode: TextInput.Password
             style: TextFieldStyle {
                 textColor: "black"
                 background: Rectangle {
-                    radius: 20
-                    implicitWidth: 280
+                    radius: 4
+                    implicitWidth: 360
                     implicitHeight: 30
                     border.color: "#333"
                     border.width: 1
-                    opacity: 0.6
                 }
             }
             onAccepted:
@@ -132,23 +116,44 @@ Rectangle
             id: loginButton
             anchors.top: passwordField.bottom
             anchors.left: passwordField.left
-            anchors.topMargin: 20
+            anchors.topMargin: 30
             width: passwordField.width
-            text: "Connexion"
 
             style: ButtonStyle {
                     background: Rectangle {
                         implicitWidth: 100
-                        implicitHeight: 25
+                        implicitHeight: 35
                         border.color: "#00000000"
                         color: "#007ee3"
                         radius: 4
+                        Text {
+                            anchors.centerIn: parent
+                            text: "Connexion"
+                            color: "white"
+                            font.bold: true
+                            font.pixelSize: 14
+                        }
                     }
             }
             MouseArea {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
                 onClicked: loginRoot.authUser()
+            }
+        }
+        Row
+        {
+            spacing: 10
+            anchors.top: loginButton.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.topMargin: 30
+            SessionPicker
+            {
+                id: sessionPicker
+            }
+            KeyboardLayoutPicker
+            {
+                id: keyboardLayoutPicker
             }
         }
 
