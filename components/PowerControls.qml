@@ -30,7 +30,7 @@ Row
         MouseArea {
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
-            onClicked: loginRoot.authUser()
+            onClicked: sddm.reboot()
         }
     }
     Button
@@ -56,7 +56,7 @@ Row
         MouseArea {
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
-            onClicked: loginRoot.authUser()
+            onClicked: sddm.powerOff()
         }
     }
 }

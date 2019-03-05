@@ -16,21 +16,21 @@ Rectangle
     }
     Rectangle
     {
-    id: imageNameBanner
-    anchors.top: parent.top
-    anchors.topMargin: 20
-    height: 40
-    width: parent.width
-    color: config.title_bg
-    Text
-    {
+        id: imageNameBanner
         anchors.top: parent.top
-        font.pixelSize: 32
-        font.bold: true
-        anchors.horizontalCenter: parent.horizontalCenter
-        color: "white"
-        text: config.title
-    }
+        anchors.topMargin: 20
+        height: 40
+        width: parent.width
+        color: config.title_bg
+        Text
+        {
+            anchors.top: parent.top
+            font.pixelSize: 32
+            font.bold: true
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: "white"
+            text: config.title
+        }
     }
     Image
     {
@@ -54,5 +54,13 @@ Rectangle
         id: powerControls
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 20
+    }
+    InfoLabels
+    {
+        id: infoLabels
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.bottomMargin: 20
+        anchors.rightMargin: 20
     }
 }
