@@ -5,14 +5,22 @@ import "components"
 Rectangle
 {
     id: root
-    color: colors.background
     property variant geometry: screenModel.geometry(screenModel.primary)
-    ColorScheme { id: colors }
     Image {
-        source: "assets/background.jpg";
+        source: config.background;
         fillMode: Image.Tile;
         anchors.fill: parent;
-        opacity: 0.4
+        opacity: 1;
+        onStatusChanged: {
+            console.log("Background status changed to " + status);
+            if (status == Image.Error)
+            {
+                source = config.background
+            }
+         }
+        Component.onCompleted: {
+                source = config.background_remote
+        }
     }
     Rectangle
     {

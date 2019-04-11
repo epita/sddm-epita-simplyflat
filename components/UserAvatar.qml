@@ -20,7 +20,7 @@ Rectangle
             maskSource: mask
         }
         onStatusChanged: {
-            console.log("Status changed to " + status);
+            console.log("Avatar status changed to " + status);
             if (status == Image.Error)
             {
                 console.log("source: " + source + ": failed to load");
